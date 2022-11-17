@@ -58,7 +58,7 @@ const App = () => {
   } 
 
    return (
-    <div className="bg-gray-300 dark:bg-gray-900 bg-contain bg-no-repeat min-h-screen bg-[url('./assets/images/bg-mobile-light.jpg')] md:bg-[url('./assets/images/bg-desktop-light.jpg')] dark:bg-[url('./assets/images/bg-mobile-dark.jpg')] md:dark:bg-[url('./assets/images/bg-desktop-dark.jpg')] transition-all duration-1000 ">
+    <div className="bg-gray-100 dark:bg-gray-900 bg-contain bg-no-repeat min-h-screen bg-[url('./assets/images/bg-mobile-light.jpg')] md:bg-[url('./assets/images/bg-desktop-light.jpg')] dark:bg-[url('./assets/images/bg-mobile-dark.jpg')] md:dark:bg-[url('./assets/images/bg-desktop-dark.jpg')] transition-all duration-1000 ">
       
       <Header/>
 
@@ -71,8 +71,8 @@ const App = () => {
         
         <TodoFilter changeFilter={changeFilter} filter={filter}/>
       </main>  
-      
-      <footer className="text-center mt-8 dark:text-gray-600 text-gray-400">
+
+      <footer className="text-center mt-8 dark:text-gray-600 text-gray-600">
         ...Drag and Drop...
       </footer>
 
