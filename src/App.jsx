@@ -8,10 +8,6 @@ import TodoList from "./components/TodoList.jsx";
 
 const initialStateTodos =JSON.parse(localStorage.getItem(`todos`)) || [ 
   { id: 1, title: "Go to the gym", completed:true },
-  { id: 2, title: "Read 30 min", completed:false },
-  { id: 3, title: "Sleep ", completed:false },
-  { id: 4, title: "Pick glorseries", completed:false },
-  { id: 5, title: "Complete todo app", completed:false }
 ];
 
 const App = () => {
