@@ -7,7 +7,7 @@ import TodoList from "./components/TodoList.jsx";
 
 
 const initialStateTodos =JSON.parse(localStorage.getItem(`todos`)) || [ 
-  { id: 1, title: "Go to the gym", completed:true },
+  { id: 0, title: "Usando la app primera vez", completed:true },
 ];
 
 const App = () => {
@@ -49,9 +49,9 @@ const App = () => {
       case "all":
         return todos; 
       case "completed":
-        return todos.filter((todo)=>!todo.completed);
+        return todos.filter((todo)=>todo.completed);
       case "active":
-        return todos.filter((todo)=> todo.completed);
+        return todos.filter((todo)=>!todo.completed);
       default:
         return todos;
     }
@@ -71,9 +71,9 @@ const App = () => {
         
         <TodoFilter changeFilter={changeFilter} filter={filter}/>
       </main>  
-
-      <footer className="text-center mt-8 dark:text-gray-300">
-        drag and drop
+      
+      <footer className="text-center mt-8 dark:text-gray-600 text-gray-400">
+        ...Drag and Drop...
       </footer>
 
     </div>
