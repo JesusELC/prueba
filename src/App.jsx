@@ -1,3 +1,5 @@
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+
 import { useEffect, useState } from "react";
 import Header from "./components/Header.jsx";
 import TodoComputed from "./components/TodoComputed.jsx";
@@ -6,9 +8,13 @@ import TodoFilter from "./components/TodoFilter.jsx";
 import TodoList from "./components/TodoList.jsx";
 
 
-const initialStateTodos =JSON.parse(localStorage.getItem(`todos`)) || [ 
-  { id: 0, title: "Usando la app primera vez", completed:true },
-];
+const initialStateTodos =JSON.parse(localStorage.getItem(`todos`)) || [];
+
+const reorder =(list, startIndex,endIndex) =>{
+  const result =[...list];
+  const [removed] = result.splice(startIndex,1);
+  result.splice(endIndex,0,removed);
+}
 
 const App = () => {
   const [todos, setTodos] = useState(initialStateTodos);
@@ -57,6 +63,13 @@ const App = () => {
     }
   } 
 
+  const handleDragEnd = (result) =>{
+    const {destination, source} = result;
+    if(!destination) return;
+    if(source.index === destination.index && source.droppableId === destination.droppableId) return;
+    setTodos((prevTasks)=>reorder(prevTasks, source.index));
+  }
+
    return (
     <div className="bg-gray-100 dark:bg-gray-900 bg-contain bg-no-repeat min-h-screen bg-[url('./assets/images/bg-mobile-light.jpg')] md:bg-[url('./assets/images/bg-desktop-light.jpg')] dark:bg-[url('./assets/images/bg-mobile-dark.jpg')] md:dark:bg-[url('./assets/images/bg-desktop-dark.jpg')] transition-all duration-1000 ">
       
@@ -65,7 +78,12 @@ const App = () => {
       <main className="container mx-auto px-4 mt-6 md:max-w-xl">
         <TodoCreate createTodo ={createTodo}/>
 
-        <TodoList todos={filteredTodos()} deleteTodo={deleteTodo} changeTodo={changeTodo}/>
+        <DragDropContext onDragEnd={handleDragEnd}>
+
+          <TodoList todos={filteredTodos()} deleteTodo={deleteTodo} changeTodo={changeTodo}/> 
+         
+        </DragDropContext>
+        
 
         <TodoComputed computedTodoLeft={computedTodoLeft} clearCompleted={clearCompleted}/>
         
