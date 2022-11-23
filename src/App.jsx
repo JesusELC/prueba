@@ -10,11 +10,12 @@ import TodoList from "./components/TodoList.jsx";
 
 const initialStateTodos =JSON.parse(localStorage.getItem(`todos`)) || [];
 
-const reorder =(list, startIndex,endIndex) =>{
+const reorder =(list, startIndex,endIndex) => {
   const result =[...list];
-  const [removed] = result.splice(startIndex,1);
-  result.splice(endIndex,0,removed);
-}
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result;
+};
 
 const App = () => {
   const [todos, setTodos] = useState(initialStateTodos);
@@ -44,7 +45,7 @@ const App = () => {
 
   const clearCompleted = ()=>{
     setTodos(todos.filter((todo) => !todo.completed));
-  }
+  };
 
   const [filter,setFilter] = useState("all");
 
@@ -61,14 +62,14 @@ const App = () => {
       default:
         return todos;
     }
-  } 
+  };
 
-  const handleDragEnd = (result) =>{
+  const handleDragEnd = (result) => {
     const {destination, source} = result;
     if(!destination) return;
     if(source.index === destination.index && source.droppableId === destination.droppableId) return;
-    setTodos((prevTasks)=>reorder(prevTasks, source.index));
-  }
+    setTodos((prevTasks) => reorder(prevTasks, source.index, destination.index));
+  };
 
    return (
     <div className="bg-gray-100 dark:bg-gray-900 bg-contain bg-no-repeat min-h-screen bg-[url('./assets/images/bg-mobile-light.jpg')] md:bg-[url('./assets/images/bg-desktop-light.jpg')] dark:bg-[url('./assets/images/bg-mobile-dark.jpg')] md:dark:bg-[url('./assets/images/bg-desktop-dark.jpg')] transition-all duration-1000 ">
@@ -91,7 +92,7 @@ const App = () => {
       </main>  
 
       <footer className="text-center mt-8 dark:text-gray-600 text-gray-600">
-        ...Drag and Drop...
+        ...Drag and Drop to ordenated...
       </footer>
 
     </div>
